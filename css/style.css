@@ -1,0 +1,27 @@
+@CHARSET "ISO-8859-1";
+
+body {
+	color: white;
+}
+
+#loginPage h3 {
+	text-align: center;
+	margin-bottom: 10px;
+}
+
+#loginPage .button {
+	text-align: center;
+	
+}
+
+.navbar-displayname {
+	display: inline;
+}
+
+.fractionColor {
+	color: #28f428;
+}
+
+.modal {
+	color: #333;
+}
