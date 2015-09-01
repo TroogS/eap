@@ -1,13 +1,4 @@
 <?php
-// define ( 'DB_HOST', 'troogs.de' );
-// define ( 'DB_USER', 'db1188164-lable' );
-// define ( 'DB_PASS', 'enemenemiste' );
-// define ( 'DB_NAME', 'db1188164-lablet' );
-define ( 'DB_HOST', 'localhost' );
-define ( 'DB_USER', 'root' );
-define ( 'DB_PASS', '' );
-define ( 'DB_NAME', 'eap' );
-
 /**
  * Controls database connection and operations
  *

@@ -11,19 +11,19 @@ define("PROJECT_ROOT","/eap");
 
 
 require 'hybrid/Hybrid/Auth.php';
-$config = dirname(__FILE__) . '/hybrid/config.php';
+$hybridConfig = dirname(__FILE__) . '/hybrid/config.php';
 
 // Try to trigger authentication
 // If this fails, the user has propably cancelled the authentication process
 try {
-	$hybrid = new Hybrid_Auth($config);
+	$hybrid = new Hybrid_Auth($hybridConfig);
 	
 } catch (Exception $e) {
 	$hybrid = false;
 }
 
 
-
+require 'connect.php';
 require 'class/Database.class.php';
 require 'class/Helper.class.php';
 #require 'class/Session.class.php';
