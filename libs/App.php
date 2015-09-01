@@ -1,19 +1,23 @@
 <?php
+
 /**
  * Bootstrap class for project
- * 
- * @author Andre Beging
  *
+ * @author Andre Beging
+ *        
  */
 class App {
+
 	protected $controller = 'Public_Controller'; // default controller
 	protected $method = 'landing';
-	protected $params = [ ];
+
+	protected $params = array ();
+
 	function __construct() {
+
 		$GLOBALS ['google'] = false;
 		$GLOBALS ['userProfile'] = false;
 		$GLOBALS ['user'] = false;
-		
 		
 		$url = $this->parseUrl ();
 		if ($url [0] == "public") {
@@ -32,9 +36,9 @@ class App {
 		// At this point, the user is authenticated with his google account
 		
 		// Logout has to be available
-		if(isset($url [0]) && $url [0] == "login") {
-			if(isset($url [1]) && $url [1] == "logout") {
-				return $this->logoutCall();
+		if (isset ( $url [0] ) && $url [0] == "login") {
+			if (isset ( $url [1] ) && $url [1] == "logout") {
+				return $this->logoutCall ();
 			}
 		}
 		
@@ -44,43 +48,49 @@ class App {
 		// Is User connected?
 		if (! $google->isUserConnected ()) {
 			$this->loginCall ();
-		} else {
-			
+		}
+		else {
 			try {
 				// Try to retrieve data
 				// If this fails, the user could have deauthorized the app
 				$GLOBALS ['userProfile'] = $google->getUserProfile ();
 				$GLOBALS ['user'] = $db->getUser ( $GLOBALS ['userProfile']->identifier );
 				
-				if(!$GLOBALS ['user']) {
-					return $this->registerCall();
+				if (! $GLOBALS ['user']) {
+					return $this->registerCall ();
+				
 				}
-
+				
 				return $this->regularCall ( $url );
-			} catch ( Exception $e ) {
+			}
+			catch ( Exception $e ) {
 				// On possible deauthorization, automated logout
 				$this->logoutCall ();
 			}
 		}
-	}
 	
+	}
+
 	/**
 	 * Called if app is connected but not a registered user
 	 */
 	private function registerCall() {
+
 		$this->controller = 'Login_Controller';
 		$this->method = 'register';
-	
+		
 		require 'controllers/' . $this->controller . '.php';
 		$this->controller = new $this->controller ();
-	
+		
 		$this->controller->{$this->method} ();
-	}
 	
+	}
+
 	/**
 	 * Called if app is not connected to users google account
 	 */
 	private function loginCall() {
+
 		$this->controller = 'Login_Controller';
 		$this->method = 'login';
 		
@@ -88,12 +98,14 @@ class App {
 		$this->controller = new $this->controller ();
 		
 		$this->controller->{$this->method} ();
-	}
 	
+	}
+
 	/**
 	 * Called when the user has possibly deauthorized the app
 	 */
 	private function logoutCall() {
+
 		$this->controller = 'Login_Controller';
 		$this->method = 'logout';
 		
@@ -101,15 +113,22 @@ class App {
 		$this->controller = new $this->controller ();
 		
 		$this->controller->{$this->method} ();
-	}
 	
+	}
+
 	/**
 	 * Called if the app is connected to a google account
 	 */
 	private function regularCall($url) {
-		if (file_exists ( 'controllers/' . $url [0] . '_Controller.php' )) {
-			$this->controller = $url [0] . "_Controller";
+
+		global $helper;
+		
+		$controllerName = strtoupper ( substr ( $url [0], 0, 1 ) ) . strtolower ( substr ( $url [0], 1 ) );
+		
+		if (file_exists ( 'controllers/' . $controllerName . '_Controller.php' )) {
+			$this->controller = $controllerName . "_Controller";
 			unset ( $url [0] );
+		
 		}
 		
 		require 'controllers/' . $this->controller . '.php';
@@ -120,17 +139,19 @@ class App {
 			$this->method = $url [1];
 			unset ( $url [1] );
 			
-			$this->params = $url ? array_values ( $url ) : [ ];
+			$this->params = $url ? array_values ( $url ) : array ();
 			
-			call_user_func_array ( [ 
+			call_user_func_array ( array (
 					$this->controller,
 					$this->method 
-			], $this->params );
-		} else {
+			), $this->params );
+		}
+		else {
 			$this->controller->{$this->method} ();
 		}
-	}
 	
+	}
+
 	/**
 	 * Parses the url given via GET and returns an array
 	 *
@@ -139,6 +160,7 @@ class App {
 	 * @return multitype: boolean
 	 */
 	private function parseUrl() {
+
 		if (isset ( $_GET ['url'] )) {
 			$urlParams = rtrim ( $_GET ['url'], '/' );
 			$urlParams = filter_var ( $urlParams, FILTER_SANITIZE_URL );
@@ -147,5 +169,7 @@ class App {
 			return $urlParams;
 		}
 		return false;
+	
 	}
+
 }

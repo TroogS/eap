@@ -17,7 +17,6 @@ $hybridConfig = dirname(__FILE__) . '/hybrid/config.php';
 // If this fails, the user has propably cancelled the authentication process
 try {
 	$hybrid = new Hybrid_Auth($hybridConfig);
-	
 } catch (Exception $e) {
 	$hybrid = false;
 }

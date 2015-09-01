@@ -9,7 +9,7 @@
 // HybridAuth Config file: http://hybridauth.sourceforge.net/userguide/Configuration.html
 // ----------------------------------------------------------------------------------------
 return array (
-		"base_url" => "http://localhost/eap/hybrid/",
+		"base_url" => "http://".$_SERVER["HTTP_HOST"]."/eap/hybrid/",
 		
 		"providers" => array (
 				// openid providers

@@ -45,4 +45,24 @@ class Helper {
 	
 	}
 
+	/**
+	 *
+	 * @param string $file        	
+	 * @return unknown boolean
+	 */
+	public function file_exists_ci($file) {
+
+		if (file_exists ( $file )) {
+			return $file;
+		}
+		$lowerfile = strtolower ( $file );
+		foreach ( glob ( dirname ( $file ) . '/*' ) as $file ) {
+			if (strtolower ( $file ) == $lowerfile) {
+				return $file;
+			}
+		}
+		return FALSE;
+	
+	}
+
 }

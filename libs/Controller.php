@@ -22,19 +22,19 @@ class Controller {
     		header("Location: ".PROJECT_ROOT);
     	}
     
-    	call_user_func_array ( [
+    	call_user_func_array ( array(
     	$this,
     	$this->defaultMethod
-    	], $args );
+    	), $args );
     
     }
     
     public function defaultMethod($args) {
     	
-    	call_user_func_array ( [
+    	call_user_func_array ( array(
     	$this,
     	$this->defaultMethod
-    	], $args );
+    	), $args );
     	
     }
 }
