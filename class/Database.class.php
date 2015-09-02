@@ -30,6 +30,12 @@ class Database extends Mysqli {
 	
 	}
 
+	/**
+	 * Writes a login into the login table
+	 * Called when a user logs in
+	 *
+	 * @param string $googleId        	
+	 */
 	public function writeLogin($googleId) {
 
 		$query = "INSERT INTO logins (googleid) VALUES ('{$googleId}');";
@@ -62,6 +68,13 @@ class Database extends Mysqli {
 	
 	}
 
+	/**
+	 * Removes a user from a group
+	 *
+	 * @param int $groupId        	
+	 * @param int $userId        	
+	 * @return mixed
+	 */
 	public function removeUserFromGroup($groupId, $userId) {
 
 		$query = "DELETE FROM user_group WHERE user_id = {$userId} AND group_id = {$groupId}";
@@ -71,6 +84,12 @@ class Database extends Mysqli {
 	
 	}
 
+	/**
+	 * Adds a user to a group
+	 *
+	 * @param int $groupId        	
+	 * @param int $userId        	
+	 */
 	public function addUserToGroup($groupId, $userId) {
 
 		$query = "
@@ -112,6 +131,12 @@ class Database extends Mysqli {
 	
 	}
 
+	/**
+	 * Gets users not in a certain group
+	 *
+	 * @param int $groupId        	
+	 * @return multitype:
+	 */
 	public function getUsersNotInGroup($groupId) {
 
 		$query = "
@@ -277,6 +302,12 @@ class Database extends Mysqli {
 	
 	}
 
+	/**
+	 * Sets the frozen flag of a user to 1
+	 *
+	 * @param int $userId        	
+	 * @return mixed
+	 */
 	public function freezeUser($userId) {
 
 		$query = "UPDATE `user` SET `frozen` = '1' WHERE `id` = {$userId};";
@@ -286,6 +317,12 @@ class Database extends Mysqli {
 	
 	}
 
+	/**
+	 * Sets the frozen flag of a user to 0
+	 *
+	 * @param int $userId        	
+	 * @return mixed
+	 */
 	public function unfreezeUser($userId) {
 
 		$query = "UPDATE `user` SET `frozen` = '0' WHERE `id` = {$userId};";
@@ -295,6 +332,12 @@ class Database extends Mysqli {
 	
 	}
 
+	/**
+	 * Gets all agents associated with a user
+	 *
+	 * @param int $userId        	
+	 * @return multitype:
+	 */
 	public function getAgentsByUser($userId) {
 
 		$agentList = $this->processSelectQuery ( "
@@ -308,6 +351,12 @@ class Database extends Mysqli {
 	
 	}
 
+	/**
+	 * Gets agents associated with a user by his user id
+	 *
+	 * @param string $googleId        	
+	 * @return multitype:
+	 */
 	public function getAgentByGoogleId($googleId) {
 
 		$agentList = $this->processSelectQuery ( "
@@ -321,6 +370,20 @@ class Database extends Mysqli {
 	
 	}
 
+	/**
+	 * Creates a user lead
+	 *
+	 * @param string $googleId        	
+	 * @param string $displayName        	
+	 * @param string $email        	
+	 * @param string $pictureUrl        	
+	 * @param string $agentArea        	
+	 * @param string $agentReference        	
+	 * @param string $verificationCode        	
+	 * @param string $agentName        	
+	 * @param int $agentAP        	
+	 * @param int $agentLevel        	
+	 */
 	public function createLead($googleId, $displayName, $email, $pictureUrl, $agentArea, $agentReference = "", $verificationCode, $agentName, $agentAP = 0, $agentLevel) {
 
 		$query = "INSERT INTO `leads`
@@ -340,6 +403,11 @@ class Database extends Mysqli {
 	
 	}
 
+	/**
+	 * Gets a lead by the users google id
+	 *
+	 * @param string $googleId        	
+	 */
 	public function getLead($googleId) {
 
 		$query = "SELECT * FROM `leads` WHERE googleid = '{$googleId}'";
@@ -349,6 +417,11 @@ class Database extends Mysqli {
 	
 	}
 
+	/**
+	 * Gets the count of active leads
+	 *
+	 * @return int
+	 */
 	public function getLeadCount() {
 
 		$query = "SELECT COUNT(*) as count FROM leads WHERE `active` = 1";
@@ -361,6 +434,11 @@ class Database extends Mysqli {
 	
 	}
 
+	/**
+	 * Gets active leads
+	 *
+	 * @return array
+	 */
 	public function getActiveLeads() {
 
 		$query = "SELECT * FROM `leads` WHERE `active` = 1 ORDER BY `created`";
@@ -375,6 +453,11 @@ class Database extends Mysqli {
 	
 	}
 
+	/**
+	 * Gets inactive leads
+	 *
+	 * @return array
+	 */
 	public function getInactiveLeads() {
 
 		$query = "SELECT * FROM `leads` WHERE `active` = 0 ORDER BY `created`";
@@ -389,6 +472,12 @@ class Database extends Mysqli {
 	
 	}
 
+	/**
+	 * Sets the active flag of a lead to 0
+	 *
+	 * @param int $leadId        	
+	 * @return mixed
+	 */
 	public function removeLead($leadId) {
 
 		$query = "UPDATE `leads` SET `active` = '0' WHERE `id` = {$leadId};";
@@ -398,6 +487,12 @@ class Database extends Mysqli {
 	
 	}
 
+	/**
+	 * Creates the user and the agent from a lead and connects agent to user
+	 *
+	 * @param int $leadId        	
+	 * @return boolean
+	 */
 	public function approveLead($leadId = -1) {
 
 		$createUser = $this->processInsertQuery ( "
@@ -439,6 +534,15 @@ class Database extends Mysqli {
 	
 	}
 
+	/**
+	 * Calls the function to update the agents level, ap and the users area
+	 * Called if the user updates his information from /me
+	 *
+	 * @param int $agentId        	
+	 * @param int $agentLevel        	
+	 * @param int $agentAp        	
+	 * @param string $userArea        	
+	 */
 	public function updateUserProfile($agentId, $agentLevel, $agentAp, $userArea) {
 
 		global $user;
@@ -447,20 +551,37 @@ class Database extends Mysqli {
 		$this->updateAgent ( $agentId, $agentLevel, $agentAp );
 	
 	}
-	
-	public function createUserProfile( $agentName, $agentLevel, $agentAp, $userArea ) {
-		
+
+	/**
+	 * Calls the functions to update the users area and creates an agent
+	 * Called if the user updates his information from /me and there was no agent found
+	 *
+	 * @param string $agentName        	
+	 * @param int $agentLevel        	
+	 * @param int $agentAp        	
+	 * @param string $userArea        	
+	 */
+	public function createUserProfile($agentName, $agentLevel, $agentAp, $userArea) {
+
 		global $user;
 		
-		
 		$this->updateUserArea ( $userArea );
-		$this->createAgent($user["id"], $agentName, $agentLevel, $agentAp);
-		
-	}
+		$this->createAgent ( $user ["id"], $agentName, $agentLevel, $agentAp );
 	
+	}
+
+	/**
+	 * Creates a new agent and connects it to a user
+	 *
+	 * @param int $userId        	
+	 * @param string $agentName        	
+	 * @param int $agentLevel        	
+	 * @param int $agentAp        	
+	 */
 	private function createAgent($userId, $agentName, $agentLevel, $agentAp) {
+
 		global $helper;
-		$now = $helper->now();
+		$now = $helper->now ();
 		
 		$agentId = $this->processInsertQuery ( "
 				INSERT INTO `agent` (`name`, `ap`, `level`, `created`)
@@ -471,20 +592,31 @@ class Database extends Mysqli {
 				INSERT INTO `user_agent`
 				SELECT NULL, {$agentId}, {$userId};
 				" );
-		
-		
+	
 	}
 
+	/**
+	 * Updates an agents level and ap
+	 *
+	 * @param int $agentId        	
+	 * @param int $agentLevel        	
+	 * @param int $agentAp        	
+	 */
 	private function updateAgent($agentId, $agentLevel, $agentAp) {
-		
+
 		$this->processInsertQuery ( "
 				UPDATE `agent`
 				SET `ap` = '{$agentAp}', `level` = '{$agentLevel}'
 				WHERE `id` = '{$agentId}';
 				" );
-		
+	
 	}
 
+	/**
+	 * Updates the users area
+	 *
+	 * @param string $userArea        	
+	 */
 	private function updateUserArea($userArea) {
 
 		global $user;
@@ -497,6 +629,12 @@ class Database extends Mysqli {
 	
 	}
 
+	/**
+	 * Generic function to process insert and update queries
+	 *
+	 * @param string $query        	
+	 * @return boolean
+	 */
 	public function processInsertQuery($query) {
 
 		if ($stmt = $this->prepare ( $query )) {
@@ -513,6 +651,12 @@ class Database extends Mysqli {
 	
 	}
 
+	/**
+	 * Generic function to process select queries
+	 *
+	 * @param string $query        	
+	 * @return multitype:
+	 */
 	private function processSelectQuery($query) {
 
 		$result = $this->query ( $query );

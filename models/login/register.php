@@ -9,7 +9,8 @@ if ($google->isUserConnected ()) {
 	$openLead = $db->getLead ( $userProfile->identifier );
 	
 	if ($openLead) {
-	} else {
+	}
+	else {
 		$verificationCode = null;
 		$errorMsg = "";
 		if (isset ( $_POST ["action"] ) && $_POST ["action"] == "performRegister") {
@@ -38,11 +39,16 @@ if ($google->isUserConnected ()) {
 	}
 }
 
+/**
+ * Gets a lead by the users google id
+ */
 function leadExists() {
+
 	global $db;
 	global $userProfile;
 	
 	return $db->getLead ( $userProfile->identifier );
+
 }
 
 ?>

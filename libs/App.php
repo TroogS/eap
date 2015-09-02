@@ -42,6 +42,7 @@ class App {
 			}
 		}
 		
+		$x = $hybrid->getAdapter ( "Google" );
 		$GLOBALS ['google'] = $hybrid->getAdapter ( "Google" );
 		$google = $GLOBALS ['google'];
 		

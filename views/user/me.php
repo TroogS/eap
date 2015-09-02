@@ -101,6 +101,8 @@ $agent = getAgent ();
 				
 				
 				
+				
+				
 				<?php
 				else :
 					?>
@@ -151,8 +153,11 @@ $agent = getAgent ();
 				
 				
 				
+				
 				<?php
-endif;
+					
+echo "";
+				endif;
 				?>
 				<p>
 					<input type="submit" value="Speichern" class="btn-success btn" />

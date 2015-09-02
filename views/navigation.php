@@ -1,7 +1,8 @@
-<?php 
+<?php
 
 ?>
-<nav class="navbar navbar-custom navbar-fixed-top" role="navigation" style="#background-color: #000;">
+<nav class="navbar navbar-custom navbar-fixed-top" role="navigation"
+	style="background-color: #000;">
 	<div class="container">
 		<div class="navbar-header page-scroll">
 			<button type="button" class="navbar-toggle" data-toggle="collapse"
@@ -17,9 +18,12 @@
 					<div class="visible-inline-md"><?php echo getName(25); ?></div>
 					<div class="visible-inline-lg"><?php echo getName(30); ?></div>
 				</h1>
-				<?php else:
-				$communityName = "Enlightened Siegen-Wittgenstein";
-				?>
+				
+				<?php
+				
+else :
+					$communityName = "Enlightened Siegen-Wittgenstein";
+					?>
 				<h1 class="navbar-displayname">
 					<div class="visible-inline-xs"><?php echo trunc($communityName, 20); ?></div>
 					<div class="visible-inline-sm"><?php echo trunc($communityName, 40); ?></div>

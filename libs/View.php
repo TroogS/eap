@@ -1,17 +1,21 @@
 <?php
+
 /**
  * Controls view operations, renders views
- * 
- * @author Andre Beging
  *
+ * @author Andre Beging
+ *        
  */
 class View {
+
 	function __construct() {
+
 		if (DEBUG === 1) {
 			var_dump ( "Inside " . get_class () );
 		}
-	}
 	
+	}
+
 	/**
 	 * Includes all files needed for the actual page
 	 *
@@ -19,6 +23,7 @@ class View {
 	 *        	Name of the view
 	 */
 	public function render($name) {
+
 		global $nav;
 		
 		require 'views/header.php';
@@ -26,5 +31,7 @@ class View {
 		require 'views/navigation.php';
 		require 'views/' . $name . '.php';
 		require 'views/footer.php';
+	
 	}
+
 }

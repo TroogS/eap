@@ -65,6 +65,9 @@ class Helper {
 	
 	}
 	
+	/**
+	 * Returns a DateTime-String formattet to YYYY-MM-DD HH:MM:SS
+	 */
 	public function now() {
 		$dateTime = new DateTime('NOW');
 		return $dateTime->format("Y-m-d H:i:s");

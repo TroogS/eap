@@ -64,6 +64,11 @@ if (isset ( $_POST ["action"] ) && $_POST ["action"] == "createAgent") {
 	}
 }
 
+/**
+ * Get the first agent associated with a user
+ *
+ * @return Ambigous <>|boolean
+ */
 function getAgent() {
 
 	global $db;

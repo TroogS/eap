@@ -12,17 +12,22 @@ if (isset ( $_POST ["action"] ) && $_POST ["action"] == "removeLead") {
 }
 
 if (isset ( $_POST ["action"] ) && $_POST ["action"] == "approveLead") {
-	var_dump($_POST ["action"]);
+	var_dump ( $_POST ["action"] );
 	
 	if (isset ( $_POST ["leadId"] ) && is_numeric ( $_POST ["leadId"] )) {
-		var_dump($_POST ["leadId"]);
+		var_dump ( $_POST ["leadId"] );
 		global $helper;
 		echo $db->approveLead ( $_POST ["leadId"] );
-		#$helper->redirectToSelf ();
+		// $helper->redirectToSelf ();
 	}
 
 }
 
+/**
+ * Gets active leads
+ *
+ * @return multitype:
+ */
 function getActiveLeads() {
 
 	global $db;
@@ -30,6 +35,11 @@ function getActiveLeads() {
 
 }
 
+/**
+ * Gets inactive leads
+ *
+ * @return multitype:
+ */
 function getInactiveLeads() {
 
 	global $db;

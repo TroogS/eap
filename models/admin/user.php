@@ -12,7 +12,7 @@ if (isset ( $_POST ["action"] ) && $_POST ["action"] == "freezeUser") {
 }
 
 if (isset ( $_POST ["action"] ) && $_POST ["action"] == "unfreezeUser") {
-
+	
 	if (isset ( $_POST ["userId"] ) && is_numeric ( $_POST ["userId"] )) {
 		global $helper;
 		$db->unfreezeUser ( $_POST ["userId"] );
@@ -21,6 +21,11 @@ if (isset ( $_POST ["action"] ) && $_POST ["action"] == "unfreezeUser") {
 
 }
 
+/**
+ * Get all users
+ *
+ * @return multitype:
+ */
 function getUsers() {
 
 	global $db;
@@ -28,6 +33,12 @@ function getUsers() {
 
 }
 
+/**
+ * Get all agents associated with a user
+ *
+ * @param int $userId        	
+ * @return Ambigous <multitype:, multitype:>
+ */
 function getAgentsByUser($userId) {
 
 	global $db;

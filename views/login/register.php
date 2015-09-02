@@ -12,7 +12,11 @@ $lead = leadExists();
 			$time = new DateTime($lead["created"]);
 		$time = $time->format("d.m.Y");
 		?>
-		<p style="margin-bottom: 40px;">dein Antrag auf Zugang vom <strong><?php echo $time; ?></strong> wurde gespeichert. Bitte poste den unten aufgeführten Text im Faction-Chat:</p>
+		<p style="margin-bottom: 40px;">
+			dein Antrag auf Zugang vom <strong><?php echo $time; ?></strong>
+			wurde gespeichert. Bitte poste den unten aufgeführten Text im
+			Faction-Chat:
+		</p>
 		<p><?php echo $lead["verification"]; ?></p>
 		<?php 
 		else:
@@ -33,8 +37,10 @@ $lead = leadExists();
 						value="E-Mail: <?php echo $userProfile->email; ?>"
 						class="form-control" disabled />
 				</p>
-				
+
 				<p>
+				
+				
 				<table style="width: 100%;">
 					<tr>
 						<td style="width: 20%; max-width: 1px;"><select name="agentLevel"
@@ -62,7 +68,8 @@ $lead = leadExists();
 							value="" class="form-control" placeholder="Ingress Nickname"
 							required /></td>
 					</tr>
-				</table></p>
+				</table>
+				</p>
 
 				<p>
 					<input type="text" name="agentArea" value=""
