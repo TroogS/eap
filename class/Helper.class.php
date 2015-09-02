@@ -64,5 +64,11 @@ class Helper {
 		return FALSE;
 	
 	}
+	
+	public function now() {
+		$dateTime = new DateTime('NOW');
+		return $dateTime->format("Y-m-d H:i:s");
+		
+	}
 
 }

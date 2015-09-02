@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Controls database connection and operations
  *
@@ -435,6 +436,64 @@ class Database extends Mysqli {
 		
 		}
 		return false;
+	
+	}
+
+	public function updateUserProfile($agentId, $agentLevel, $agentAp, $userArea) {
+
+		global $user;
+		
+		$this->updateUserArea ( $userArea );
+		$this->updateAgent ( $agentId, $agentLevel, $agentAp );
+	
+	}
+	
+	public function createUserProfile( $agentName, $agentLevel, $agentAp, $userArea ) {
+		
+		global $user;
+		
+		
+		$this->updateUserArea ( $userArea );
+		$this->createAgent($user["id"], $agentName, $agentLevel, $agentAp);
+		
+	}
+	
+	private function createAgent($userId, $agentName, $agentLevel, $agentAp) {
+		global $helper;
+		$now = $helper->now();
+		
+		$agentId = $this->processInsertQuery ( "
+				INSERT INTO `agent` (`name`, `ap`, `level`, `created`)
+				SELECT '{$agentName}', '{$agentAp}', '{$agentLevel}', '{$now}'
+				" );
+		
+		$this->processInsertQuery ( "
+				INSERT INTO `user_agent`
+				SELECT NULL, {$agentId}, {$userId};
+				" );
+		
+		
+	}
+
+	private function updateAgent($agentId, $agentLevel, $agentAp) {
+		
+		$this->processInsertQuery ( "
+				UPDATE `agent`
+				SET `ap` = '{$agentAp}', `level` = '{$agentLevel}'
+				WHERE `id` = '{$agentId}';
+				" );
+		
+	}
+
+	private function updateUserArea($userArea) {
+
+		global $user;
+		
+		$this->processInsertQuery ( "
+				UPDATE `user`
+				SET `area` = '{$userArea}'
+				WHERE `id` = '{$user["id"]}';
+				" );
 	
 	}
 
