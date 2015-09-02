@@ -43,7 +43,7 @@ class App {
 		}
 		
 		$google = $hybrid->getAdapter ( "Google" );
-		$google->refreshToken();
+		#$google->refreshToken();
 		$GLOBALS ['google'] = $google;
 		
 		// Is User connected?

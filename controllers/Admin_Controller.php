@@ -31,10 +31,22 @@ class Admin_Controller extends Controller {
 	}
 	
 	public function user() {
+		
+		$args = func_get_args();
+		if(isset($args[0]) && strtolower($args[0]) == strtolower("edit")) {
+			if(isset($args[1]) && is_numeric($args[1])) {
+				return $this->editUser($args[1]);
+			}
+		}
+		
 		require 'models/admin/user.php';
 		if (file_exists ( "views/admin/user.php" )) {
 			$this->view->render ( "admin/user" );
 		}
+	}
+	
+	private function editUser($userId) {
+		
 	}
 	
 	public function info($args = null) {

@@ -8,7 +8,7 @@ if ($hybrid) {
 
 // LOGIC //
 if (isLoggedIn ()) {
-	$nav->addItem ( new NavBarItem ( "Mein Profil", PROJECT_ROOT . "/user/me", "" ) );
+	$nav->addItem ( new NavBarItem ( "Mein Profil", PROJECT_ROOT . "/me", "" ) );
 	
 	// ADMIN
 	$leadNotificationCount = getLeadCount ();

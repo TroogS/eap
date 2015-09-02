@@ -26,22 +26,23 @@ $users = getUsers ();
 							src="<?php echo PROJECT_ROOT;?>/img/googleplus_16x16.png" /></a></small>
 				</h3>
 				<div class="row"
-					style="position: absolute; bottom: 0px; right: 20px; bottom: 20px;">
+					style="position: absolute; bottom: 0px; right: 20px; top: 20px; text-align: right;">
 					<br />
 					<div class="col-sm-12">
 					<?php 
 					if(!$u["frozen"]):
 					?>
-						<button class="btn btn-danger" data-toggle="modal"
-							data-target="#freezeUser<?php echo $u["id"]; ?>">Sperren</button>
+						<p><button class="btn btn-danger" data-toggle="modal"
+							data-target="#freezeUser<?php echo $u["id"]; ?>">Sperren</button></p>
 					<?php 
 					else:
 					?>
-					<button class="btn btn-success" data-toggle="modal"
-							data-target="#unfreezeUser<?php echo $u["id"]; ?>">Entsperren</button>
+					<p><button class="btn btn-success" data-toggle="modal"
+							data-target="#unfreezeUser<?php echo $u["id"]; ?>">Entsperren</button></p>
 					<?php 
 					endif;
 					?>
+					<p><a class="btn btn-warning" href="<?php echo PROJECT_ROOT;?>/admin/user/edit/<?php echo $u["id"]; ?>">Bearbeiten</a></p>
 					</div>
 				</div>
 			</div>
