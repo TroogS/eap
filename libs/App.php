@@ -42,9 +42,9 @@ class App {
 			}
 		}
 		
-		$x = $hybrid->getAdapter ( "Google" );
-		$GLOBALS ['google'] = $hybrid->getAdapter ( "Google" );
-		$google = $GLOBALS ['google'];
+		$google = $hybrid->getAdapter ( "Google" );
+		$google->refreshToken();
+		$GLOBALS ['google'] = $google;
 		
 		// Is User connected?
 		if (! $google->isUserConnected ()) {
