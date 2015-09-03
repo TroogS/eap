@@ -6,6 +6,8 @@
  * @author Andre Beging
  */
 class Helper {
+	
+	public $groups = array();
 
 	/**
 	 * Generates a 32 character long UUID

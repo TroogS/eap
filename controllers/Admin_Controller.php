@@ -46,7 +46,10 @@ class Admin_Controller extends Controller {
 	}
 	
 	private function editUser($userId) {
-		
+		require 'models/admin/edituser.php';
+		if (file_exists ( "views/admin/edituser.php" )) {
+			$this->view->render ( "admin/edituser" );
+		}
 	}
 	
 	public function info($args = null) {

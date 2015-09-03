@@ -31,6 +31,40 @@ class Database extends Mysqli {
 	}
 
 	/**
+	 * Get a user by his id
+	 *
+	 * @param int $userId        	
+	 */
+	public function getUserById($userId) {
+
+		$query = "SELECT * FROM `user` WHERE id = '{$userId}'";
+		$result = $this->query ( $query );
+		
+		return $result->fetch_array ( MYSQL_ASSOC );
+	
+	}
+
+	/**
+	 * Get the users group
+	 *
+	 * TODO DB Changes
+	 *
+	 * @param int $userId        	
+	 */
+	public function getGroupByUserId($userId) {
+
+		$query = "
+			SELECT g.name
+			FROM `user` u
+			INNER JOIN `group` g ON u.group_id = g.id
+			WHERE u.id = '{$userId}'";
+		$result = $this->query ( $query );
+		
+		return $result->fetch_array ( MYSQL_ASSOC );
+	
+	}
+
+	/**
 	 * Writes a login into the login table
 	 * Called when a user logs in
 	 *
@@ -69,6 +103,8 @@ class Database extends Mysqli {
 	}
 
 	/**
+	 * TODO DB Changes
+	 *
 	 * Removes a user from a group
 	 *
 	 * @param int $groupId        	
@@ -85,6 +121,8 @@ class Database extends Mysqli {
 	}
 
 	/**
+	 * TODO DB Changes
+	 *
 	 * Adds a user to a group
 	 *
 	 * @param int $groupId        	
@@ -132,6 +170,8 @@ class Database extends Mysqli {
 	}
 
 	/**
+	 * TODO DB Changes
+	 *
 	 * Gets users not in a certain group
 	 *
 	 * @param int $groupId        	
@@ -160,38 +200,22 @@ class Database extends Mysqli {
 	}
 
 	/**
-	 * TODO geht ncoh nicht
-	 *
+	 * Get group names
+	 * 
 	 * @return multitype:
 	 */
 	public function getGroups() {
 
-		$query = "
-			SELECT g.id, g.name, g.description, g.create_date, COALESCE(projects,0) AS projects, COALESCE(users,0) AS users FROM groups g
-			LEFT JOIN (
-			    SELECT COUNT(*) as projects, group_id as id
-			    FROM groups g
-				INNER JOIN projects_groups pg 
-			    ON pg.group_id = g.id
-				GROUP BY g.id) ppg
-			ON ppg.id = g.id
-			LEFT JOIN (
-			    SELECT COUNT(*) as users, group_id as id
-			    FROM groups g
-				INNER JOIN users_groups ug
-			    ON ug.group_id = g.id
-				GROUP BY g.id) upg
-			ON upg.id = g.id
-				";
-		$result = $this->query ( $query );
-		$tmpresult = array ();
+		$result = $this->processSelectQuery ( "
+				SELECT `name` FROM `group`
+				" );
 		
-		while ( $row = $result->fetch_array ( MYSQL_ASSOC ) ) {
-			array_push ( $tmpresult, $row );
+		$groupNames = array();
+		foreach ($result as $r) {
+			array_push($groupNames, $r["name"]);
 		}
 		
-		return $tmpresult;
-	
+		return $groupNames;	
 	}
 
 	/**
@@ -303,14 +327,14 @@ class Database extends Mysqli {
 	}
 
 	/**
-	 * Sets the frozen flag of a user to 1
+	 * Sets the group_id flag of a user to 0
 	 *
 	 * @param int $userId        	
 	 * @return mixed
 	 */
 	public function freezeUser($userId) {
 
-		$query = "UPDATE `user` SET `frozen` = '1' WHERE `id` = {$userId};";
+		$query = "UPDATE `user` SET `group_id` = '0' WHERE `id` = {$userId};";
 		$result = $this->query ( $query );
 		
 		return $result;
@@ -318,14 +342,22 @@ class Database extends Mysqli {
 	}
 
 	/**
-	 * Sets the frozen flag of a user to 0
+	 * Sets the group_id of a user to 0 (=frozen)
 	 *
 	 * @param int $userId        	
 	 * @return mixed
 	 */
 	public function unfreezeUser($userId) {
 
-		$query = "UPDATE `user` SET `frozen` = '0' WHERE `id` = {$userId};";
+		$query = "
+			UPDATE `user`
+			SET `group_id` = (
+				SELECT id
+				FROM `group` g
+				WHERE `name` = 'user'
+				LIMIT 1
+				)
+			WHERE `id` = '{$userId}'";
 		$result = $this->query ( $query );
 		
 		return $result;
@@ -550,6 +582,37 @@ class Database extends Mysqli {
 		$this->updateUserArea ( $userArea );
 		$this->updateAgent ( $agentId, $agentLevel, $agentAp );
 	
+	}
+	
+	/**
+	 * Update user group and area
+	 * Called from admin useredit view
+	 * 
+	 * @param int $userId
+	 * @param string $userGroup
+	 * @param string $userArea
+	 */
+	public function updateUserAdmin ( $userId, $userGroup, $userArea ) {
+		
+		$this->processInsertQuery ( "
+				UPDATE `user`
+				SET `area` = '{$userArea}',
+					`group_id` = 
+						(
+						SELECT IFNULL
+							(
+					    		(
+					    		SELECT id FROM `group`
+					        	WHERE `name` = '{$userGroup}'
+					    		),
+					    	'0'
+							) AS id
+						FROM `group`
+						LIMIT 1
+						)
+				WHERE `id` = '{$userId}';
+				" );
+		
 	}
 
 	/**

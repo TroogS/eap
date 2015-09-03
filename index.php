@@ -46,6 +46,8 @@ $GLOBALS ['helper'] = $helper;
 $db = new Database ();
 $GLOBALS ['db'] = $db;
 
+$helper->groups = $db->getGroups();
+
 $nav = new Navigation ();
 $app = new App ();
 $db->close ();

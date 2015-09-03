@@ -12,8 +12,8 @@ $users = getUsers ();
 			$modified = new DateTime ( $u ["modified"] );
 			$agentList = getAgentsByUser ( $u ["id"] );
 			
-			$borderColor = ($u["frozen"] == 1 ? "#F00" : "#FFF");
-			$borderSize = ($u["frozen"] == 1 ? "1" : "0");
+			$borderColor = ($u["group_id"] == 0 ? "#F00" : "#FFF");
+			$borderSize = ($u["group_id"] == 0 ? "1" : "0");
 			?>
 		<div
 			style="border: <?php echo $borderSize; ?>px solid <?php echo $borderColor; ?>; padding: 10px; margin-bottom: 20px; background-color: #222; position: relative;">
@@ -30,7 +30,7 @@ $users = getUsers ();
 					<br />
 					<div class="col-sm-12">
 					<?php 
-					if(!$u["frozen"]):
+					if($u["group_id"]):
 					?>
 						<p><button class="btn btn-danger" data-toggle="modal"
 							data-target="#freezeUser<?php echo $u["id"]; ?>">Sperren</button></p>

@@ -5,7 +5,7 @@ $agent = getAgent ();
 ?>
 <div id="loginPage"
 	style="margin-left: auto; margin-right: auto; width: 100%; max-width: 992px;">
-	<h2>Zugang beantragen</h2>
+	<h2>Mein Profil</h2>
 	<div style="width: 100%; margin: auto; max-width: 400px;">
 		<p>Hallo <?php echo $userProfile->displayName; ?>,</p>
 
