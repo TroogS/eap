@@ -47,6 +47,7 @@ $group = getGroup ();
 				</p>
 				<p>
 					<input type="submit" value="Speichern" class="btn-danger btn" />
+					<a href="<?php echo PROJECT_ROOT."/admin/user"; ?>" class="btn btn-default">Zurück</a>
 				</p>
 			</form>
 		</div>

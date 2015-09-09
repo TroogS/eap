@@ -12,15 +12,31 @@ $users = getUsers ();
 			$modified = new DateTime ( $u ["modified"] );
 			$agentList = getAgentsByUser ( $u ["id"] );
 			
-			$borderColor = ($u["group_id"] == 0 ? "#F00" : "#FFF");
-			$borderSize = ($u["group_id"] == 0 ? "1" : "0");
+			$borderColor = ($u ["group"] == null ? "#F00" : "#FFF");
+			$borderSize = ($u ["group"] == null ? "1" : "0");
+			
+			switch ($u ["group"]) {
+				case "user" :
+					$groupName = "User";
+					break;
+				case "admin" :
+					$groupName = "Admin";
+					break;
+				case "mod" :
+					$groupName = "Moderator";
+					break;
+				default :
+					$groupName = "Gesperrt";
+			}
+			
 			?>
 		<div
 			style="border: <?php echo $borderSize; ?>px solid <?php echo $borderColor; ?>; padding: 10px; margin-bottom: 20px; background-color: #222; position: relative;">
 			<div>
 				<h3 style="text-align: left;">
 					<small>ID: <?php echo $u["id"]; ?></small> <img
-						src="<?php echo $u["photo"]; ?>" style="height: 50px;" /> <span style="color: <?php echo $borderColor; ?>"><?php echo $u["name"]; ?></span> <small><a
+						src="<?php echo $u["photo"]; ?>" style="height: 50px;" /> <span style="color: <?php echo $borderColor; ?>"><?php echo $u["name"]; ?></span>
+					<small><a
 						href="https://plus.google.com/<?php echo $u["googleid"]; ?>"
 						target="_blank"><img
 							src="<?php echo PROJECT_ROOT;?>/img/googleplus_16x16.png" /></a></small>
@@ -29,26 +45,37 @@ $users = getUsers ();
 					style="position: absolute; bottom: 0px; right: 20px; top: 20px; text-align: right;">
 					<br />
 					<div class="col-sm-12">
-					<?php 
-					if($u["group_id"]):
-					?>
-						<p><button class="btn btn-danger" data-toggle="modal"
-							data-target="#freezeUser<?php echo $u["id"]; ?>">Sperren</button></p>
-					<?php 
-					else:
-					?>
-					<p><button class="btn btn-success" data-toggle="modal"
-							data-target="#unfreezeUser<?php echo $u["id"]; ?>">Entsperren</button></p>
-					<?php 
-					endif;
-					?>
-					<p><a class="btn btn-warning" href="<?php echo PROJECT_ROOT;?>/admin/user/edit/<?php echo $u["id"]; ?>">Bearbeiten</a></p>
+					<?php
+			if ($u ["group"]) :
+				?>
+						<p>
+							<button class="btn btn-danger" data-toggle="modal"
+								data-target="#freezeUser<?php echo $u["id"]; ?>">Sperren</button>
+						</p>
+					
+			
+			<?php
+			else :
+				?>
+					<p>
+							<button class="btn btn-success" data-toggle="modal"
+								data-target="#unfreezeUser<?php echo $u["id"]; ?>">Entsperren</button>
+						</p>
+					
+			
+			<?php
+endif;
+			?>
+					<p>
+							<a class="btn btn-warning"
+								href="<?php echo PROJECT_ROOT;?>/admin/user/edit/<?php echo $u["id"]; ?>">Bearbeiten</a>
+						</p>
 					</div>
 				</div>
 			</div>
 			<p>
-				<strong>Gebiet: </strong><?php echo $u["area"]; ?><br /> <strong>Angemeldet
-					seit: </strong><?php echo $created->format("d.m.Y - H:i"); ?><br />
+				<strong>Gruppe: </strong><?php echo $groupName; ?><br /> <strong>Gebiet:
+				</strong><?php echo $u["area"]; ?><br /> <strong>Angemeldet seit: </strong><?php echo $created->format("d.m.Y - H:i"); ?><br />
 				<strong>Letzte Änderung: </strong><?php echo $modified->format("d.m.Y - H:i"); ?>
 			</p>
 			<?php
@@ -103,7 +130,7 @@ $users = getUsers ();
 
 			</div>
 		</div>
-		
+
 		<!-- Unfreeze User Modal -->
 		<div id="unfreezeUser<?php echo $u["id"]; ?>" class="modal fade"
 			role="dialog">

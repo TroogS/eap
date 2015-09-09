@@ -22,18 +22,6 @@ if (isset ( $_POST ["action"] ) && $_POST ["action"] == "unfreezeUser") {
 }
 
 /**
- * Get all users
- *
- * @return multitype:
- */
-function getUsers() {
-
-	global $db;
-	return $db->getUsers ();
-
-}
-
-/**
  * Get all agents associated with a user
  *
  * @param int $userId        	

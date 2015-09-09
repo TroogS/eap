@@ -22,28 +22,4 @@ if (isset ( $_POST ["action"] ) && $_POST ["action"] == "approveLead") {
 	}
 
 }
-
-/**
- * Gets active leads
- *
- * @return multitype:
- */
-function getActiveLeads() {
-
-	global $db;
-	return $db->getActiveLeads ();
-
-}
-
-/**
- * Gets inactive leads
- *
- * @return multitype:
- */
-function getInactiveLeads() {
-
-	global $db;
-	return $db->getInactiveLeads ();
-
-}
 ?>

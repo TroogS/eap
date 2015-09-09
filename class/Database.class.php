@@ -157,7 +157,10 @@ class Database extends Mysqli {
 	 */
 	public function getUsers() {
 
-		$query = "SELECT * FROM user";
+		$query = "
+			SELECT u.id, googleid, u.name, email, photo, created, modified, area, frozen, g.name as `group`
+			FROM user u
+			LEFT JOIN `group` g ON u.group_id = g.id";
 		$result = $this->query ( $query );
 		$tmpresult = array ();
 		
