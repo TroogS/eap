@@ -21,6 +21,7 @@ catch ( Exception $e ) {
 }
 
 require 'connect.php';
+require 'class/Functions.php';
 require 'class/Database.class.php';
 require 'class/Helper.class.php';
 // require 'class/Session.class.php';
@@ -39,8 +40,8 @@ function __autoload($files) {
 }
 // spl_autoload_register('__autoload');
 
-// session_start();
-// $session = new Session();
+
+
 $helper = new Helper ();
 $GLOBALS ['helper'] = $helper;
 $db = new Database ();

@@ -43,7 +43,7 @@ class App {
 		}
 		
 		$google = $hybrid->getAdapter ( "Google" );
-		#$google->refreshToken();
+		// $google->refreshToken();
 		$GLOBALS ['google'] = $google;
 		
 		// Is User connected?
@@ -61,6 +61,8 @@ class App {
 					return $this->registerCall ();
 				
 				}
+				
+				new Functions (); // Make global function available
 				
 				return $this->regularCall ( $url );
 			}
