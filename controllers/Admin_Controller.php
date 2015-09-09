@@ -30,6 +30,13 @@ class Admin_Controller extends Controller {
 		}
 	}
 	
+	public function settings() {
+		require 'models/admin/settings.php';
+		if (file_exists ( "views/admin/settings.php" )) {
+			$this->view->render ( "admin/settings" );
+		}
+	}
+	
 	public function user() {
 		
 		$args = func_get_args();

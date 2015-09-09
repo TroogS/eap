@@ -20,6 +20,14 @@ class Functions {
 		
 		}
 
+		function setValue($key, $value) {
+
+			global $db;
+			
+			$db->setValue ( $key, $value );
+		
+		}
+
 		/**
 		 * Gets active leads
 		 *

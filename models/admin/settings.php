@@ -1,0 +1,2 @@
+<?php
+setValue("namjjae", "anjjdi");

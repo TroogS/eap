@@ -22,6 +22,7 @@ if (isLoggedIn ()) {
 	$dropDown = new NavBarDropDown ( "Admin" . $adminNotification );
 	$dropDown->addItem ( new NavBarItem ( "Anfragen" . $leadNotification, PROJECT_ROOT . "/admin/leads", "" ) );
 	$dropDown->addItem ( new NavBarItem ( "Benutzer", PROJECT_ROOT . "/admin/user", "" ) );
+	$dropDown->addItem ( new NavBarItem ( "Einstellungen", PROJECT_ROOT . "/admin/settings", "" ) );
 	$nav->addItem ( $dropDown );
 	
 	$nav->addItem ( new NavBarItem ( "Logout", PROJECT_ROOT . "/login/logout", "" ) );

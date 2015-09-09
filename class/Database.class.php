@@ -15,6 +15,59 @@ class Database extends Mysqli {
 	}
 
 	/**
+	 * Inserts a key/value pair into the meta_data table
+	 * 
+	 * @param string $key
+	 * @param string $value
+	 * @return boolean
+	 */
+	public function setValue($key, $value) {
+
+		$keyId = $this->getStringId ( $key );
+		$valueId = $this->getStringId ( $value );
+		
+		$result = $this->processInsertQuery ( "
+			INSERT INTO `meta_data` (`key`, `value`)
+				SELECT * 
+				FROM (SELECT '{$keyId}', '{$valueId}') AS tmp
+				WHERE NOT EXISTS
+					(
+					SELECT `key`, `value`
+					FROM `meta_data`
+					WHERE `key` = '{$keyId}' AND `value` = '{$valueId}'
+					)
+				LIMIT 1;" );
+		
+		if ($result) {
+			return true;
+		}
+		return false;
+	
+	}
+
+	/**
+	 * Checks if the given string is in meta_strings table
+	 * Returns its id or inserts the string and returns the new id
+	 * 
+	 * @param string $string
+	 * @return boolean
+	 */
+	private function getStringId($string) {
+
+		$stringId = $this->processSelectQuery ( "SELECT id from meta_strings WHERE `value` = '{$string}' LIMIT 1" );
+		
+		if (! $stringId) {
+			$stringId = $this->processInsertQuery ( "INSERT INTO `meta_strings` (`id`, `value`) VALUES (NULL, '{$string}');" );
+		}
+		else {
+			$stringId = $stringId [0] ["id"];
+		}
+		
+		return $stringId;
+	
+	}
+
+	/**
 	 * Get a single user by id from database
 	 *
 	 * @param int $userId
