@@ -1,7 +1,7 @@
 @CHARSET "ISO-8859-1";
 
 body {
-	color: white;
+	color: #FFF;
 }
 
 #loginPage h3 {
@@ -11,7 +11,6 @@ body {
 
 #loginPage .button {
 	text-align: center;
-	
 }
 
 .navbar-displayname {
@@ -24,4 +23,40 @@ body {
 
 .modal {
 	color: #333;
+}
+
+/* Memberlist */
+.memberListCell {
+	border: 0px solid red;
+	height: 50px;
+	line-height: 50px;
+	vertical-align: middle;
+}
+
+.memberListRow:hover {
+	background-color: #222;
+}
+
+.tooltip.left .tooltip-arrow {
+	top: 50%;
+	right: 0;
+	margin-top: -5px;
+	border-left-color: red;
+	border-width: 5px 0 5px 5px;
+}
+
+.tooltip.right .tooltip-arrow {
+	top: 50%;
+	left: 0;
+	margin-top: -5px;
+	border-right-color: red;
+	border-width: 5px 5px 5px 0;
+}
+
+.tooltip.bottom .tooltip-arrow {
+	top: 0;
+	left: 50%;
+	margin-left: -5px;
+	border-bottom-color: red;
+	border-width: 0 5px 5px;
 }

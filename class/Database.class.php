@@ -201,7 +201,7 @@ class Database extends Mysqli {
 
 	/**
 	 * Get group names
-	 * 
+	 *
 	 * @return multitype:
 	 */
 	public function getGroups() {
@@ -210,12 +210,13 @@ class Database extends Mysqli {
 				SELECT `name` FROM `group`
 				" );
 		
-		$groupNames = array();
-		foreach ($result as $r) {
-			array_push($groupNames, $r["name"]);
+		$groupNames = array ();
+		foreach ( $result as $r ) {
+			array_push ( $groupNames, $r ["name"] );
 		}
 		
-		return $groupNames;	
+		return $groupNames;
+	
 	}
 
 	/**
@@ -504,6 +505,20 @@ class Database extends Mysqli {
 	
 	}
 
+	public function getMemberList() {
+
+		$result = $this->processSelectQuery ( "
+				SELECT u.name user_name, u.photo, u.area, a.name agent_name, a.ap, a.level, a.modified
+				FROM `user` u
+				INNER JOIN `user_agent` ug
+				ON ug.user_id = u.id
+				INNER JOIN `agent` a
+				ON ug.agent_id = a.id" );
+		
+		return $result;
+	
+	}
+
 	/**
 	 * Sets the active flag of a lead to 0
 	 *
@@ -583,17 +598,17 @@ class Database extends Mysqli {
 		$this->updateAgent ( $agentId, $agentLevel, $agentAp );
 	
 	}
-	
+
 	/**
 	 * Update user group and area
 	 * Called from admin useredit view
-	 * 
-	 * @param int $userId
-	 * @param string $userGroup
-	 * @param string $userArea
+	 *
+	 * @param int $userId        	
+	 * @param string $userGroup        	
+	 * @param string $userArea        	
 	 */
-	public function updateUserAdmin ( $userId, $userGroup, $userArea ) {
-		
+	public function updateUserAdmin($userId, $userGroup, $userArea) {
+
 		$this->processInsertQuery ( "
 				UPDATE `user`
 				SET `area` = '{$userArea}',
@@ -612,7 +627,7 @@ class Database extends Mysqli {
 						)
 				WHERE `id` = '{$userId}';
 				" );
-		
+	
 	}
 
 	/**

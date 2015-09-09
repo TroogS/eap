@@ -28,4 +28,13 @@ class User_Controller extends Controller {
 	
 	}
 
+	public function member() {
+
+		require 'models/user/member.php';
+		if (file_exists ( "views/user/member.php" )) {
+			$this->view->render ( "user/member" );
+		}
+	
+	}
+
 }

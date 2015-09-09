@@ -24,6 +24,7 @@
 <script src="<?php echo PROJECT_ROOT; ?>/js/jquery.easing.min.js"></script>
 <script src="<?php echo PROJECT_ROOT; ?>/js/jquery.scrollTo.js"></script>
 <script src="<?php echo PROJECT_ROOT; ?>/js/wow.min.js"></script>
+<script src="<?php echo PROJECT_ROOT; ?>/js/script.js"></script>
 <!-- Custom Theme JavaScript -->
 
 

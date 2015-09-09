@@ -6,8 +6,8 @@
  * @author Andre Beging
  */
 class Helper {
-	
-	public $groups = array();
+
+	public $groups = array ();
 
 	/**
 	 * Generates a 32 character long UUID
@@ -66,14 +66,15 @@ class Helper {
 		return FALSE;
 	
 	}
-	
+
 	/**
 	 * Returns a DateTime-String formattet to YYYY-MM-DD HH:MM:SS
 	 */
 	public function now() {
-		$dateTime = new DateTime('NOW');
-		return $dateTime->format("Y-m-d H:i:s");
-		
+
+		$dateTime = new DateTime ( 'NOW' );
+		return $dateTime->format ( "Y-m-d H:i:s" );
+	
 	}
 
 }
