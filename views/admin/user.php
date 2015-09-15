@@ -34,13 +34,21 @@ $users = getUsers ();
 			style="border: <?php echo $borderSize; ?>px solid <?php echo $borderColor; ?>; padding: 10px; margin-bottom: 20px; background-color: #222; position: relative;">
 			<div>
 				<h3 style="text-align: left;">
-					<small>ID: <?php echo $u["id"]; ?></small> <img
-						src="<?php echo $u["photo"]; ?>" style="height: 50px;" /> <span style="color: <?php echo $borderColor; ?>"><?php echo $u["name"]; ?></span>
+					<small>ID: <?php echo $u["id"]; ?></small> <span style="color: <?php echo $borderColor; ?>"><?php echo $u["name"]; ?></span>
 					<small><a
 						href="https://plus.google.com/<?php echo $u["googleid"]; ?>"
 						target="_blank"><img
 							src="<?php echo PROJECT_ROOT;?>/img/googleplus_16x16.png" /></a></small>
 				</h3>
+				<div style="width: 100%;">
+					<div style="display: inline; margin-right: 10px;">
+						<a href="https://plus.google.com/<?php echo $u["googleid"]; ?>"
+							target="_blank"><img src="<?php echo $u["photo"]; ?>"
+							style="height: 50px;" /></a>
+					</div>
+					<script
+						src="https://enlightened.rocks/api/badge/<?php echo $u["googleid"]; ?>"></script>
+				</div>
 				<div class="row"
 					style="position: absolute; bottom: 0px; right: 20px; top: 20px; text-align: right;">
 					<br />
@@ -54,6 +62,10 @@ $users = getUsers ();
 						</p>
 					
 			
+			
+			
+			
+			
 			<?php
 			else :
 				?>
@@ -63,8 +75,11 @@ $users = getUsers ();
 						</p>
 					
 			
+			
 			<?php
-endif;
+				
+				echo "";
+			endif;
 			?>
 					<p>
 							<a class="btn btn-warning"

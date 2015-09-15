@@ -16,9 +16,9 @@ class Database extends Mysqli {
 
 	/**
 	 * Inserts a key/value pair into the meta_data table
-	 * 
-	 * @param string $key
-	 * @param string $value
+	 *
+	 * @param string $key        	
+	 * @param string $value        	
 	 * @return boolean
 	 */
 	public function setValue($key, $value) {
@@ -48,8 +48,8 @@ class Database extends Mysqli {
 	/**
 	 * Checks if the given string is in meta_strings table
 	 * Returns its id or inserts the string and returns the new id
-	 * 
-	 * @param string $string
+	 *
+	 * @param string $string        	
 	 * @return boolean
 	 */
 	private function getStringId($string) {

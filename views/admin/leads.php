@@ -21,10 +21,14 @@ $inactiveLeads = getInactiveLeads ();
 					User <small><?php echo $l["created"]; ?></small>
 				</h3>
 			</div>
-			<div>
-				<a href="https://plus.google.com/<?php echo $l["googleid"]; ?>"
-					target="_blank"><img src="<?php echo $l["photo"]; ?>"
-					style="height: 50px;" /></a>
+			<div style="width: 100%;">
+				<div style="display: inline; margin-right: 10px;">
+					<a href="https://plus.google.com/<?php echo $l["googleid"]; ?>"
+						target="_blank"><img src="<?php echo $l["photo"]; ?>"
+						style="height: 50px;" /></a>
+				</div>
+				<script
+					src="https://enlightened.rocks/api/badge/<?php echo $l["googleid"]; ?>"></script>
 			</div>
 			<div class="row">
 				<div class="col-sm-6">
@@ -158,11 +162,10 @@ $inactiveLeads = getInactiveLeads ();
 									
 									
 	</div>
-	<div style="text-align:center; margin-bottom: 20px;"><button class="btn btn-success" type="button"
-		data-toggle="collapse" data-target="#collapseOldLeads"
-		aria-expanded="false" aria-controls="collapseOldLeads">
-		Alte Anfragen einblenden
-		</button>
+	<div style="text-align: center; margin-bottom: 20px;">
+		<button class="btn btn-success" type="button" data-toggle="collapse"
+			data-target="#collapseOldLeads" aria-expanded="false"
+			aria-controls="collapseOldLeads">Alte Anfragen einblenden</button>
 	</div>
 	<div class="collapse" id="collapseOldLeads">
 		<div
