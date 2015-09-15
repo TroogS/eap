@@ -49,44 +49,6 @@ $users = getUsers ();
 					<script
 						src="https://enlightened.rocks/api/badge/<?php echo $u["googleid"]; ?>"></script>
 				</div>
-				<div class="row"
-					style="position: absolute; bottom: 0px; right: 20px; top: 20px; text-align: right;">
-					<br />
-					<div class="col-sm-12">
-					<?php
-			if ($u ["group"]) :
-				?>
-						<p>
-							<button class="btn btn-danger" data-toggle="modal"
-								data-target="#freezeUser<?php echo $u["id"]; ?>">Sperren</button>
-						</p>
-					
-			
-			
-			
-			
-			
-			<?php
-			else :
-				?>
-					<p>
-							<button class="btn btn-success" data-toggle="modal"
-								data-target="#unfreezeUser<?php echo $u["id"]; ?>">Entsperren</button>
-						</p>
-					
-			
-			
-			<?php
-				
-				echo "";
-			endif;
-			?>
-					<p>
-							<a class="btn btn-warning"
-								href="<?php echo PROJECT_ROOT;?>/admin/user/edit/<?php echo $u["id"]; ?>">Bearbeiten</a>
-						</p>
-					</div>
-				</div>
 			</div>
 			<p>
 				<strong>Gruppe: </strong><?php echo $groupName; ?><br /> <strong>Gebiet:
@@ -108,6 +70,67 @@ $users = getUsers ();
 			endforeach
 			;
 			?>
+			
+			<!-- EDIT AND FREEZE BUTTONS -->
+			<div class="visible-xs">
+				<hr />
+				<div class="row">
+					<div class="col-xs-6">
+					<?php
+			if ($u ["group"]) :
+				?>
+				
+				<button class="btn btn-danger" data-toggle="modal"
+							data-target="#freezeUser<?php echo $u["id"]; ?>">Sperren</button>
+			<?php
+			else :
+				?>
+				
+				<button class="btn btn-success" data-toggle="modal"
+							data-target="#unfreezeUser<?php echo $u["id"]; ?>">Entsperren</button>
+				
+				<?php
+				
+				echo "";
+			endif;
+			?>
+					</div>
+					<div class="col-xs-6">
+						<a class="btn btn-warning"
+							href="<?php echo PROJECT_ROOT;?>/admin/user/edit/<?php echo $u["id"]; ?>">Bearbeiten</a>
+					</div>
+				</div>
+			</div>
+			<div class="row hidden-xs"
+				style="position: absolute; bottom: 0px; right: 20px; top: 20px; text-align: right;">
+				<br />
+				<div class="col-sm-12">
+					<?php
+			if ($u ["group"]) :
+				?>
+						<p>
+						<button class="btn btn-danger" data-toggle="modal"
+							data-target="#freezeUser<?php echo $u["id"]; ?>">Sperren</button>
+					</p>
+			<?php
+			else :
+				?>
+					<p>
+						<button class="btn btn-success" data-toggle="modal"
+							data-target="#unfreezeUser<?php echo $u["id"]; ?>">Entsperren</button>
+					</p>
+			<?php
+				
+				echo "";
+			endif;
+			?>
+					<p>
+						<a class="btn btn-warning"
+							href="<?php echo PROJECT_ROOT;?>/admin/user/edit/<?php echo $u["id"]; ?>">Bearbeiten</a>
+					</p>
+				</div>
+			</div>
+			<!-- /EDIT AND FREEZE BUTTONS -->
 		</div>
 
 		<!-- Freeze User Modal -->
