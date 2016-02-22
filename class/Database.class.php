@@ -45,6 +45,7 @@ class Database extends Mysqli {
 	
 	}
 
+
 	/**
 	 * Checks if the given string is in meta_strings table
 	 * Returns its id or inserts the string and returns the new id

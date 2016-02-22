@@ -1,2 +1,2 @@
 <?php
-setValue("namjjae", "anjjdi");
+setValue ( "namjjae", "anjjdi" );

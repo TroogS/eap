@@ -4,66 +4,65 @@
  * Provides global functions
  *
  * @author Andre Beging
- *        
+ *
  */
 class Functions {
 
-	public function __construct() {
+    public function __construct() {
 
+        function getSelf() {
 
-		function getSelf() {
+            global $db;
+            global $userProfile;
 
-			global $db;
-			global $userProfile;
-			
-			return $db->getUser ( $userProfile->identifier );
-		
-		}
+            return $db->getUser($userProfile->identifier);
 
-		function setValue($key, $value) {
+        }
 
-			global $db;
-			
-			$db->setValue ( $key, $value );
-		
-		}
+        function setValue($key, $value) {
 
-		/**
-		 * Gets active leads
-		 *
-		 * @return multitype:
-		 */
-		function getActiveLeads() {
+            global $db;
 
-			global $db;
-			return $db->getActiveLeads ();
-		
-		}
+            $db->setValue($key, $value);
 
-		/**
-		 * Gets inactive leads
-		 *
-		 * @return multitype:
-		 */
-		function getInactiveLeads() {
+        }
 
-			global $db;
-			return $db->getInactiveLeads ();
-		
-		}
+        /**
+         * Gets active leads
+         *
+         * @return multitype:
+         */
+        function getActiveLeads() {
 
-		/**
-		 * Get all users
-		 *
-		 * @return multitype:
-		 */
-		function getUsers() {
+            global $db;
+            return $db->getActiveLeads();
 
-			global $db;
-			return $db->getUsers ();
-		
-		}
-	
-	}
+        }
+
+        /**
+         * Gets inactive leads
+         *
+         * @return multitype:
+         */
+        function getInactiveLeads() {
+
+            global $db;
+            return $db->getInactiveLeads();
+
+        }
+
+        /**
+         * Get all users
+         *
+         * @return multitype:
+         */
+        function getUsers() {
+
+            global $db;
+            return $db->getUsers();
+
+        }
+
+    }
 
 }
